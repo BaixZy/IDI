@@ -33,7 +33,7 @@ void main() {
 */
 
 //Actividad 4
- FragColor = fcolor;
+ FragColor = vec4(fcolor, 1.0); //Alfa 0 = opaco 1 = transparente.
 
 }
 
