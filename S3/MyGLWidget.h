@@ -28,8 +28,9 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     //Interact with QT
     virtual void keyPressEvent (QKeyEvent * e);
 
-    void modelTransform(); //Declaro un método nuevo para realizar TG
+    void modelTransformObj1();  //Declaro un método nuevo para realizar TG
 
+    void modelTransformObj2();
   private:
     void creaBuffers ();
     void carregaShaders ();
@@ -41,11 +42,16 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     //float miescala = 0.3f; //inicializo aqui porque voy autilizarlo en varios puntos del programa
     float tx = 0;
     float ty = 0;
-
+    float angulo = 0;
+    float esclx = 1.0;
+    float escly = 1.0;
+    float esclz = 1.0;
+    float anguloObj1 = 0.0f;  // Ángulo para obj1
+    float anguloObj2 = 0.0f;  // Ángulo para obj2
 
     // Program
     QOpenGLShaderProgram *program;
 
-    GLuint VAO1;
+    GLuint VAO1, VAO2;
     GLint ample, alt;
 };
