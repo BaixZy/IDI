@@ -49,23 +49,38 @@ int MyGLWidget::printOglError(const char file[], int line, const char func[])
 
 
 void MyGLWidget:: initializeGL ( ) {
-    BL2GLWidget::initializeGL();
     //Añadimos mi codigo que se añade al codigo del padre -> BL2GLWidget.
-     
+     BL2GLWidget::initializeGL();
      //Actividad 1
-     projectTransform(); //Llamamos a project transfomr
-     viewTransform(); //Llamamos a view transform y se le añaden estas lineas al "padre"
-     /*glEnable (GL_DEPTH_TEST); //Algoritmo de Z-Buffer;
-     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
+    // projectTransform(); //Llamamos a project transfomr
+    // viewTransform(); //Llamamos a view transform y se le añaden estas lineas al "padre"     
+     
+     //Actividad 4 cargar modelo
+     glEnable (GL_DEPTH_TEST); //Algoritmo de Z-Buffer;     
+     creaBuffers();
 }    
 
  void MyGLWidget::carregaShaders () {
     BL2GLWidget::carregaShaders(); //Llama al código del padre BL2GLWIDGET
    
     //Añadimos una linea que se sobreescribira en el codigo del padre BL2Glwidget
-    projLoc = glGetUniformLocation (program->programId(), "PRJ");
-    viewLoc = glGetUniformLocation (program->programId(), "VM");
+   // projLoc = glGetUniformLocation (program->programId(), "PRJ");
+   // viewLoc = glGetUniformLocation (program->programId(), "VM");
+   transHomer = glGetUniformLocation (program->programId(), "TG");
+   
  }
+ 
+ void MyGLWidget:: keyPressEvent (QKeyEvent *event) {
+ 	makeCurrent();
+  	switch (event->key()) {
+    		case Qt::Key_R: { // escalar a més gran
+      		angulo_h += 45;
+      		break;
+    		}
+    default: event->ignore(); break;
+    }
+  update();
+}
  
 //Actividad 4 modelos
 void MyGLWidget::creaBuffers () {
@@ -95,13 +110,18 @@ void MyGLWidget::creaBuffers () {
 glBindVertexArray (0);
 }
 
-//void MyGLWidget::paintGL () {
+void MyGLWidget::paintGL () {
+     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+     modelTransformH();
+     glBindVertexArray (VAO_Homer);
+     // pintem
+     glDrawArrays(GL_TRIANGLES, 0, m.faces ().size () * 3);
+     glBindVertexArray (0);
+}
 
-//}
 
 
-
-
+/*
 //Actividad 1
 void MyGLWidget::projectTransform () {
     // glm::perspective (FOV en radians, ra window, znear, zfar)
@@ -117,7 +137,13 @@ void MyGLWidget::viewTransform () {
     glm::vec3(0,0,0), glm::vec3(1,0,0));
     glUniformMatrix4fv (viewLoc, 1, GL_FALSE, &View[0][0]);
 } 
-
+*/
+//Actividad 5
+void MyGLWidget::modelTransformH() {
+   glm::mat4 TG(1.0);
+   TG = glm::rotate(TG,angulo_h,glm::vec3(0.0,1.0,0.0));
+   glUniformMatrix4fv (transHomer, 1, GL_FALSE, &TG[0][0]);
+}
 
 
 MyGLWidget::~MyGLWidget() {

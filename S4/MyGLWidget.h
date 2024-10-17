@@ -12,6 +12,7 @@ class MyGLWidget : public BL2GLWidget {
     virtual void initializeGL ( );
     virtual void carregaShaders (); //Va a sobrescribir a la clase BL2GLWIDGET
     //virtual void modelTransform ();
+    virtual void keyPressEvent (QKeyEvent *event);
     
     
     //Modelos
@@ -19,15 +20,18 @@ class MyGLWidget : public BL2GLWidget {
     //Sobreescribiremos al padre
      virtual void creaBuffers ();
 
-     //virtual void paintGL();
+     virtual void paintGL();
 
      //Creamos una nueva función
       void projectTransform (); //Actividad 1
       void viewTransform(); //Actividad 2
+      void modelTransformH();
 
-      GLuint projLoc; //Puntero al uniform mat4 de la matriz proyección
-      GLuint viewLoc; //Puntero al uniform mat4 de la matriz view
+     // GLuint projLoc; //Puntero al uniform mat4 de la matriz proyección
+     // GLuint viewLoc; //Puntero al uniform mat4 de la matriz view
+      GLuint transHomer;
       GLuint VAO_Homer;
+      float angulo_h = 0;
       Model m;
   private:
     int printOglError(const char file[], int line, const char func[]);
