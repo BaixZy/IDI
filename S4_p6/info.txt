@@ -1,0 +1,11 @@
+#Hacer actividades/MODIFICACIONES siempre en MyGLWidget(clase hija/derivada de BL2GLWidget) y no en BL2GLWidget para el examen y siempre si no entonces no se corrige
+
+BL2GLWidget NOOOOO se puede tocar
+
+
+glBufferData (..., m.VBO_vertices (), GL_STATIC_DRAW); // posició
+VBO_vertices() -> Puntero al primer elemento posicion
+
+ZBuffer -> Pixel de color i profundidad
+
+sizeof(GLfloat) * m.faces ().size () * 3 * 3 //Numero de caras * 3 vertices * 3 flotantes
