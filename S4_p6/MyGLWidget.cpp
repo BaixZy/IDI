@@ -67,8 +67,8 @@ void MyGLWidget:: initializeGL ( ) {
    // projLoc = glGetUniformLocation (program->programId(), "PRJ");
    // viewLoc = glGetUniformLocation (program->programId(), "VM");
    transHomer = glGetUniformLocation (program->programId(), "TG");
-   transSuelo = glGetUniformLocation(program->programId(), "TG_suelo");
-   sueloLoc = glGetUniformLocation(program->programId(), "suelo_ver");
+
+   
    
    
  }
@@ -112,38 +112,24 @@ void MyGLWidget::creaBuffers () {
    //Añadir la tierra
    
   // Crear el Vertex Array Object para el suelo
-    GLfloat tierraVertices[] = {
-        -2.0f, -1.0f, -2.0f,  // Vértice inferior izquierdo
-         2.0f, -1.0f, -2.0f,  // Vértice inferior derecho
-        -2.0f, -1.0f,  2.0f,  // Vértice superior izquierdo
-         2.0f, -1.0f,  2.0f   // Vértice superior derecho
-    };
+ glm::vec3 Vertices2[6];
+Vertices2[0] = glm::vec3(-1.0, -1.0, 1.0);   // Vértice inferior izquierdo
+Vertices2[1] = glm::vec3(-1.0, -1.0, -1.0);  // Vértice inferior derecho
+Vertices2[2] = glm::vec3(1.0, -1.0, 1.0);    // Vértice superior izquierdo
+Vertices2[3] = glm::vec3(-1.0, -1.0, -1.0);  // Vértice inferior derecho (repetido)
+Vertices2[4] = glm::vec3(1.0, -1.0, 1.0);    // Vértice superior izquierdo (repetido)
+Vertices2[5] = glm::vec3(1.0, -1.0, -1.0);   // Vértice superior derecho
 
-    GLuint tierraIndices[] = {
-        0, 1, 2, // Triángulo 1 (A, B, C)
-        1, 3, 2  // Triángulo 2 (B, D, C)
-    };
-
-    // Crear el VAO para el suelo
-    glGenVertexArrays(1, &VAO_tierra);
-    glBindVertexArray(VAO_tierra);
-
-    // Crear un VBO para los vértices
-    GLuint VBO_tierra;
-    glGenBuffers(1, &VBO_tierra);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_tierra);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(tierraVertices), tierraVertices, GL_STATIC_DRAW);
-
-    // Definir el atributo de vértice
-    glVertexAttribPointer(sueloLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(sueloLoc); // Habilitar el primer atributo de vértice
-
-    // Crear un EBO para los índices
-    GLuint EBO_tierra;
-    glGenBuffers(1, &EBO_tierra);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_tierra);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(tierraIndices), tierraIndices, GL_STATIC_DRAW);
-
+  glGenVertexArrays(1, &VAO_tierra);
+  glBindVertexArray(VAO_tierra);
+  
+  GLuint VBO3;
+  glGenBuffers(1, &VBO3);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO3);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices2), Vertices2, GL_STATIC_DRAW);
+ 
+  glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+  glEnableVertexAttribArray(vertexLoc);
     glBindVertexArray(0); // Desvincular VAO
 }
 
@@ -154,7 +140,7 @@ void MyGLWidget::paintGL () {
     // Dibujar la tierra
     modelTransformSuelo();
     glBindVertexArray(VAO_tierra);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Dibuja el suelo
+    glDrawArrays (GL_TRIANGLES, 0, 6); // Dibuja el suelo
     glBindVertexArray(0);
      
           
@@ -192,9 +178,11 @@ void MyGLWidget::modelTransformH() {
 }
 
 void MyGLWidget::modelTransformSuelo() {
-    glm::mat4 TG(1.0); // Matriz identidad
-    TG = glm::translate(TG, glm::vec3(0.0, -1.0, 0.0)); // Desplazar el suelo al plano Y = -1
-    glUniformMatrix4fv(transSuelo, 1, GL_FALSE, &TG[0][0]); // Enviar la matriz al shader
+  glm::mat4 transform (1.0f);
+  //transform = glm::scale(transform, glm::vec3(escala));
+  transform = glm::scale(transform, glm::vec3(2.0,1.0,2.0));
+   transform = glm::scale(transform, glm::vec3(1.0,1.0,1.0));
+  glUniformMatrix4fv(transLoc, 1, GL_FALSE, &transform[0][0]);
 }
 
 

@@ -31,10 +31,8 @@ class MyGLWidget : public BL2GLWidget {
      // GLuint projLoc; //Puntero al uniform mat4 de la matriz proyección
      // GLuint viewLoc; //Puntero al uniform mat4 de la matriz view
       GLuint transHomer;
-      GLuint transSuelo;
       GLuint VAO_Homer;
       GLuint VAO_tierra;
-      GLuint sueloLoc;
       
       
       float angulo_h = 0;
