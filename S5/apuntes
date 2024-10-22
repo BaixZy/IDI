@@ -1,0 +1,54 @@
+Objetivo -> Para que no se deforme (Caja contenedora)
+
+ - lookAT OBS VRP UP (View Matrix)
+
+xmax,xmin,ymax,ymin,zmax,zmin -> Pmax+Pmin/2 y esto seria el VRP(Centro).
+
+Distancia del observador R + R /2R (Radio) puedo escoger el valor para situarlo fuera de la escena.
+= OBS = C(Centro) + R(Radio)
+
+
+- PERSPECTIVE ZN ZF R FOV (Project Matrix) R = ratio = 1
+
+R(Radio) = distancia(Pmax,Pmin)/2 (Radio de la esfera contenedora) glm:distance(P1,P2)
+
+d = R + R
+ZN = D - R
+ZF = D + R
+FOVoptimo = 2 arcsin R/D (asin función matemática)
+
+
+
+
+Ejercicio 3
+
+Llamar a la función resizeGL cada vez que se redimensione la ventana. Y después llamar al 
+
+r > 1 r = ancho/alto
+
+    si el ratio > 1 -> r´ = ancho´/altura
+
+Ejercicio 4
+
+calcular el OBS,VRP,
+
+DIAPOSITIVA 25 DE LA SESION 2.1
+for (unsigned int i = 0; i < m.vertices().size(); i+=3) {
+// escric per pantalla les coordenades del vèrtex
+std::cout << “(x, y, z) = (“ << m.vertices()[i] << “, “
+<< m.vertices()[i+1] << “, “
+<< m.vertices()[i+2] << “)” << std::endl;
+}
+XMAX = -1E10
+XMIN = 1E10
+
+Altura patricio = ymax-ymin y tengo que escalar homogeniamente para que tenga altura 4. (h * 4/h) en el modeltransform del Patricio
+
+
+Ejercicio 5
+glm:ortho(l,r,b,t,zn,zf)
+l,r,b,t -> Ratio de la esfera contenedora! 
+l = -R
+r = R
+t = R
+b = -R
