@@ -1,0 +1,22 @@
+1. Rotar la escena al contrario de la camara
+2.Transform contrario del código
+3. Signos ángulos (Sentido antihorario positivo)
+
+virtual void mouseMoveEvent(QMouseEvent e ) {
+    makeCurrent();
+    current x = e->X();
+    delta_x = curent_x - old_x;
+    ang = 2*pi*delta_x/width;
+    old_x = e-X();
+    update();
+} 
+e->X() Llamamos a la coordenada x del ratón en la pantalla
+e->Y/() Llamamos a la coordenada y del ratón en la pantalla
+
+
+
+Transformacion camara:
+1. Mover cámara VRP (centro de la escena) -> Mover escena -VRP -> VM= VM*Translate(-VRP.x,-VRP.y,-VRP.z)
+2. Rotar respecto eje y
+3. Rotar respecto eje x
+4. Alehjar la camara -> Mover escena a -OBS (a distancia -d)
