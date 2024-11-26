@@ -58,13 +58,13 @@ vec3 Especular (vec3 NormSCO, vec3 L, vec4 vertSCO, vec3 colFocus)
 void main()
 {
   fcolor = matdiff; // Este es el color del final rellenar con los parámetros Ambient() + difus(...) + Especular(....)
-  vec3 vertSCO = (view * TG * vec4(vertex,1.0)).xyz; //Origen -> posicion del observador
+  vec3 vertSCO = (view * TG * vec4(vertex,1.0)).xyz; //Origen
   mat3 normalMatrix = inverse(transpose(mat3(view*TG)));
-  vec3 normSCO = normalMatrix*normal; //El vector normal en Sistema de coordenadas de observador
+  vec3 normSCO = normalMatrix*normal;
   normSCO = normalize(normSCO);
-  vec3 posF = (view * vec4(posFocus,1.0)).xyz; //Destino -> posicion del foco
+  vec3 posF = (view * vec4(posFocus,1.0)).xyz; //Destino
   vec3 L = posF - vertSCO;
-  L = normalize(L); //Vector unitario del observador al foco
+  L = normalize(L);
   vec3 Amb = Ambient();
   vec3 Dif = Difus(normSCO,L,colorFocus);
   fcolor = Amb + Dif;
