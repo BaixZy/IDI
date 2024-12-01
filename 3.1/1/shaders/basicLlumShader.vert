@@ -58,6 +58,7 @@ vec3 Especular (vec3 NormSCO, vec3 L, vec4 vertSCO, vec3 colFocus)
 void main()
 {
   fcolor = matdiff; // Este es el color del final rellenar con los parámetros Ambient() + difus(...) + Especular(....)
+  
   vec3 vertSCO = (view * TG * vec4(vertex,1.0)).xyz; //Origen
   mat3 normalMatrix = inverse(transpose(mat3(view*TG)));
   vec3 normSCO = normalMatrix*normal;
