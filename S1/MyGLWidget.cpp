@@ -47,10 +47,9 @@ void MyGLWidget::paintGL ()
   
   glBindVertexArray(VAO2);
   
-  glDrawArrays(GL_TRIANGLES, 0, 3);  sssssssssssss// 3 vértices para el triángulo
+  glDrawArrays(GL_TRIANGLES, 0, 3);// 3 vértices para el triángulo
   
   glBindVertexArray(0); //Desactivem VAO
-  s
   //Pintem el triangle VAO2
   glViewport (ample/2, alt/2, ample/2, alt/2);
   
@@ -122,7 +121,7 @@ void MyGLWidget::creaBuffers ()
 
   // Desactivem el VAO
   //glBindVertexArray(0); Al activar un VAO nuevo se desactiva el anterior.
-  
+  /*
   glGenVertexArrays(1, &VAO2); //Nos asignará un(indicado por el 1) VAO
   glBindVertexArray(VAO2); //Activame el VAO actual
   
@@ -137,6 +136,7 @@ void MyGLWidget::creaBuffers ()
   glEnableVertexAttribArray(vertexLoc); //Activamos
   
   glBindVertexArray(0); //Desactivar VAO
+  */
 
 }
 
